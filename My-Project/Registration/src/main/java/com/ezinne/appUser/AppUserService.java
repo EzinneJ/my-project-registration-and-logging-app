@@ -12,17 +12,12 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService {
+public class AppUserService {
 
     private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
-    }
 
     public String signUpUser(AppUser appUser) {
         String email = appUser.getEmail();
@@ -39,11 +34,19 @@ public class AppUserService implements UserDetailsService {
         return "user has signed up";
     }
 
-        private String setBCryptPasswordEncoder (AppUser appUser){
-            String encodePassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+    public String loginUser(AppUser appUser) {
+        String email = appUser.getEmail();
+        Optional<AppUser> emailExists = appUserRepository.findByEmail(email);
 
-            String hashedPassword = appUser.setPassword(encodePassword);
-            return hashedPassword;
+        if (emailExists.isEmpty() && !email.matches(appUserRepository.findByEmail(email).toString())) {
+            return "user needs to sign up";
+        }
+            return "User is successfully logged in, user can now save notes";
+        }
+
+        private void setBCryptPasswordEncoder (AppUser appUser){
+            String encodePassword = bCryptPasswordEncoder.encode("password");
+            appUser.setPassword(encodePassword);
         }
 
     }

@@ -1,10 +1,6 @@
 package com.ezinne.appUser;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +10,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AppUserService {
 
-    private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
+    private static final String NOTES_LINK = "http://localhost:8081/api/v1/note";
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -31,7 +27,7 @@ public class AppUserService {
         setBCryptPasswordEncoder(appUser);
 
         appUserRepository.save(appUser);
-        return "user has signed up";
+        return String.format("user has signed up. Navigate to %s to start saving your notes", NOTES_LINK);
     }
 
     public String loginUser(AppUser appUser) {

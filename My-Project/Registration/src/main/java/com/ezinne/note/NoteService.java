@@ -18,9 +18,7 @@ public class NoteService {
 
     private final AppUserRepository appUserRepository;
 
-    private final AppUserService appUserService;
     private final static String REGISTRATION_LINK = "http://localhost:8081/api/v1/registration";
-    private final static String LOGIN_LINK = "http://localhost:8081/api/v1/login";
 
     public String saveNotes(Note notes) {
         Note note = new Note();

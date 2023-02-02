@@ -1,6 +1,5 @@
 package com.ezinne.registration;
 
-import com.ezinne.appUser.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +9,15 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
 
     private final RegistrationService registrationService;
-    private final AppUserRepository appUserRepository;
 
     @PostMapping
     public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }
 
-
+    @DeleteMapping("/{email}")
+    public String deleteRegisteredUser(@PathVariable String email) {
+        return registrationService.deleteRegisteredUser(email);
+    }
 
 }

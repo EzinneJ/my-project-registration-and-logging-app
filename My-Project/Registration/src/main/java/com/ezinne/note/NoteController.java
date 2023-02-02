@@ -1,10 +1,7 @@
 package com.ezinne.note;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/note")
@@ -15,5 +12,15 @@ public class NoteController {
     @PostMapping
     public String saveNote(@RequestBody Note note) {
         return noteService.saveNotes(note);
+    }
+
+    @PutMapping("/noteId")
+    public String editNote(@PathVariable Long noteId, @RequestBody Note note) {
+        return noteService.editNotes(noteId, note);
+    }
+
+    @DeleteMapping("/noteId")
+    public String deleteNote(@PathVariable Long noteId){
+        return noteService.deleteNote(noteId);
     }
 }

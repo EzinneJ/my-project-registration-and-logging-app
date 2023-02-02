@@ -40,6 +40,12 @@ public class AppUserService {
             return "User is successfully logged in, user can now save notes";
         }
 
+        public String deleteUser(String email) {
+            Optional<AppUser> existingEmail = appUserRepository.findByEmail(email);
+            appUserRepository.delete(existingEmail.get());
+            return String.format("AppUser with %s has been deleted", email);
+        }
+
         private void setBCryptPasswordEncoder (AppUser appUser){
             String encodePassword = bCryptPasswordEncoder.encode("password");
             appUser.setPassword(encodePassword);

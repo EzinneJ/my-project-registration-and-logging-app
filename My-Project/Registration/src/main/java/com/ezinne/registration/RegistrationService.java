@@ -22,4 +22,9 @@ public class RegistrationService {
         ));
     }
 
+    public String deleteRegisteredUser(String email){
+        return appUserService.deleteUser(email);
+    }
+
+
 }

@@ -33,10 +33,24 @@ public class NoteService {
         Optional<AppUser> appUserExists = appUserRepository.findByEmail(email);
 
         if (appUserExists.isEmpty()) {
-            return String.format("user needs to sign up first. Navigate to this url %S", REGISTRATION_LINK);
+            return String.format("user needs to sign up first. Navigate to this url %s", REGISTRATION_LINK);
         }
         noteRepository.save(note);
         return "your note is saved";
+    }
+
+    public String editNotes(Long noteId, Note newNote) {
+        return noteRepository.findById(noteId)
+                .map(oldNote -> {
+                    oldNote.setMyNotes(newNote.getMyNotes());
+                    noteRepository.save(newNote);
+                    return "myNotes has been edited";
+                }).orElseThrow(() -> new IllegalArgumentException(String.format("%d does not exist", noteId)));
+    }
+
+    public String deleteNote(Long noteId) {
+      noteRepository.deleteById(noteId);
+      return String.format("Notes with %d has been deleted", noteId);
     }
 
 }

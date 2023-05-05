@@ -4,7 +4,7 @@ This software is developed using different technologies :
 language - java. 
 build - maven. 
 framework - spring . 
-api - restful.  
+api - restful. 
 versioning - git. 
 database - MySQL. 
 deployed - elastic beanstalk - AWS

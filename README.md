@@ -1,5 +1,14 @@
 # my-project-registration-and-logging-app
 
+This software is developed using different technologies :
+language - java
+build - maven
+framework - spring
+api - restful 
+versioning - git
+database - MySQL
+deployed - elastic beanstalk - AWS
+
 this app enables a user to sign up 
 
 allows a user to login using email and password

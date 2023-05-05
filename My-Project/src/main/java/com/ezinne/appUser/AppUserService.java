@@ -28,8 +28,10 @@ public class AppUserService {
 
             setBCryptPasswordEncoder(appUser);
 
-            appUserRepository.save(appUser);
-                 return "user has signed up";
+             appUser.setLoggedIn(false);
+             appUserRepository.save(appUser);
+            return String.format("user has signed up with id: %d %n FirstName: %s%n LastName: %s%n Email: %s%n",
+                         appUser.getId(), appUser.getFirstName(), appUser.getLastName(), appUser.getEmail());
     }
 
     public String loginUser(AppUser appUser) {
@@ -55,6 +57,9 @@ public class AppUserService {
 
         public String deleteUser(Long id) {
             Optional<AppUser> existingUser = appUserRepository.findById(id);
+            if (existingUser.isEmpty()) {
+                return "user not found";
+            }
             AppUser appUser = existingUser.get();
             List<Note> notes = appUser.getNotes();
 

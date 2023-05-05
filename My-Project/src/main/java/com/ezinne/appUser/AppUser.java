@@ -3,6 +3,7 @@ package com.ezinne.appUser;
 import com.ezinne.note.Note;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -48,6 +49,7 @@ public class AppUser implements Serializable{
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.loggedIn = false;
     }
 
     public AppUser(String email, String password) {
